@@ -1,12 +1,17 @@
 // WEBSOCKET CONNECTION
 const WebSocketServer = require("ws").Server;
-const wss = new WebSocketServer({ port: 8080 });
 const express = require('express')
-const app = express()
 const PORT = process.env.PORT || 3001
 const cors = require('cors')
 
+const server = express()
+  .use(cors())
+  .use(express.static('build'))
+  .use(express.json())
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
 console.log('web socket')
+
+const wss = new WebSocketServer({server});
 // THIS VARIABLE STORES EVERY CONNECTION AS A DIFFERENTLY CLIENT
 //SO THAT THE SAME ACTION WILL BE PERFORMED ON ALL OF THEM
 let clients = [];
@@ -42,13 +47,3 @@ function cleanUp() {
         wss.broadcast({ username: "admin", message: "A User Has Left The Chat" }, client)
     );
 }
-app.use(cors())
-app.use(express.static('build'))
-app.use(express.json())
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-  })
-  
-  app.listen(PORT, () => {
-    console.log(`Example app listening at http://localhost:${PORT}`)
-  })
