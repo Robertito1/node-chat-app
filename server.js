@@ -4,6 +4,8 @@ const express = require('express')
 const PORT = process.env.PORT || 3001
 const cors = require('cors')
 
+
+// A WHOLE HTTPS EXPRESS SERVER PASSED AS AN ARGUMENT TO THE WEBSOCKETS SERVER
 const server = express()
   .use(cors())
   .use(express.static('build'))
