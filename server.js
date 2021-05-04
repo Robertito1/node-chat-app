@@ -1,8 +1,6 @@
 // WEBSOCKET CONNECTION
 const WebSocketServer = require("ws").Server;
-const wss = new WebSocketServer("ws://zuri-chat.herokuapp.com/chat", {
-    perMessageDeflate: false
-  });
+const wss = new WebSocketServer({ port: 8080 });
 const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 3001
